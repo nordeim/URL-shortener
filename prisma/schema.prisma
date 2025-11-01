@@ -1,0 +1,33 @@
+// This is a development-only Prisma schema file.
+// For production deployment with Supabase, use the SQL schema in scripts/db-init.sql
+// This file is provided for local development and testing purposes only.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Link {
+  id            BigInt      @id @default(autoincrement())
+  createdAt     DateTime    @default(now()) @map("created_at")
+  originalUrl   String      @map("original_url")
+  shortId       String      @unique @map("short_id")
+  clickCount    Int         @default(0) @map("click_count")
+  customAlias   Boolean     @default(false) @map("custom_alias")
+  lastAccessed  DateTime?   @map("last_accessed")
+  metadata      Json        @default("{}")
+
+  @@map("links")
+  @@index([createdAt])
+  @@index([lastAccessed])
+}
+
+// Development-only comments:
+// - This schema matches the Supabase SQL schema exactly
+// - Use `npm run db:push` to create tables in local database
+// - For production, run the SQL in scripts/db-init.sql in Supabase
+// - This file will be removed in production builds

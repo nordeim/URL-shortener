@@ -49,7 +49,7 @@ export async function DELETE(request: NextRequest) {
     const { error: deleteError } = await supabase
       .from('links')
       .delete()
-      .eq('id', existingLink.id)
+      .eq('id', (existingLink as any).id)
 
     if (deleteError) {
       console.error('Error deleting link:', deleteError)

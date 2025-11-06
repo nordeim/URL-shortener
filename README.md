@@ -606,6 +606,39 @@ Special thanks to the amazing open-source community:
 
 ---
 
+## 🗄️ Database Schema Backup
+
+A complete backup of the Supabase database schema is provided for local development setup:
+
+### 📁 Backup Files
+- `database_schema_backup.sql` - Complete SQL schema script
+- `LOCAL_SETUP_GUIDE.md` - Detailed setup instructions  
+- `verify_database.sh` - Linux/Mac verification script
+- `verify_database.bat` - Windows verification script
+
+### 🚀 Quick Setup
+```bash
+# Create local database
+createdb url_shortener_dev
+
+# Import schema
+psql -d url_shortener_dev -f database_schema_backup.sql
+
+# Verify setup
+./verify_database.sh url_shortener_dev
+```
+
+### 📊 Database Structure
+- **4 Tables**: links, urls, url_analytics, user_profiles
+- **3 Sequences**: Auto-incrementing IDs
+- **10+ Indexes**: Optimized for performance
+- **1 View**: Aggregated analytics summary
+- **1 Trigger**: Automatic timestamp updates
+
+For complete documentation, see `LOCAL_SETUP_GUIDE.md`.
+
+---
+
 ## 🗺️ Roadmap
 
 ### Upcoming Features

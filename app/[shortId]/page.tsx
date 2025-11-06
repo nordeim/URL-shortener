@@ -19,7 +19,7 @@ export default async function RedirectPage({ params }: PageProps) {
   try {
     const supabase = getSupabaseClient(true) // Use service role for admin operations
 
-    // Fetch the link with atomic click count increment
+    // Fetch the link
     const { data, error } = await supabase
       .from('links')
       .select('original_url, click_count')
@@ -31,12 +31,13 @@ export default async function RedirectPage({ params }: PageProps) {
       notFound()
     }
 
-    // Sanitize and validate the original URL
+    // Sanitize and validate the original URL  
+    const linkData = data as { original_url: string; click_count: number }
     let originalUrl: string
     try {
-      originalUrl = sanitizeUrl(data.original_url)
+      originalUrl = sanitizeUrl(linkData.original_url)
     } catch (error) {
-      console.error('Invalid URL in database:', data.original_url, error)
+      console.error('Invalid URL in database:', linkData.original_url, error)
       notFound()
     }
 
@@ -93,9 +94,10 @@ export async function generateMetadata({ params }: PageProps) {
       }
     }
 
+    const linkData = data as { original_url: string; created_at: string }
     return {
-      title: `Redirecting to ${new URL(data.original_url).hostname}`,
-      description: `You are being redirected to ${data.original_url}`,
+      title: `Redirecting to ${new URL(linkData.original_url).hostname}`,
+      description: `You are being redirected to ${linkData.original_url}`,
       robots: {
         index: false,
         follow: false,

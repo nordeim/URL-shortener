@@ -1,0 +1,9 @@
+Copied: .next
+Missing: public
+Copied: package.json
+Copied: server.js
+Copied: .env.local
+Copied: next.config.mjs
+
+Dist directory contents: ['.env', '.next', 'next.config.mjs', 'package.json', 'server.js']
+Dist directory size: 0.18 MB

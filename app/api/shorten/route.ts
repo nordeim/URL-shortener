@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
           user_agent: request.headers.get('user-agent') || '',
           ip_address: request.headers.get('x-forwarded-for') || 'unknown',
         },
-      })
+      } as any)
       .select('id, created_at')
       .single()
 
@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
         qrDataUrl,
         originalUrl: sanitizedUrl,
         customAlias,
-        createdAt: newLink.created_at,
+        createdAt: (newLink as any).created_at,
         message: 'URL shortened successfully',
       },
       { status: HTTP_STATUS.CREATED }

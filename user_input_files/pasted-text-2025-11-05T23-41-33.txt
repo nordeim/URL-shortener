@@ -1,0 +1,684 @@
+The current UI looks technically functional but lacks *aesthetic character*, modern polish, and emotional appeal. Please meticulously review the suggestions below and then think deeper and think harder to deeply explore thoroughly and systematically how best to re-imagine the appearance aesthetic of the application. Then meticulously create a detailed and comprehensive implementatin plan broken down into logical phases. Review and validate the plan before proceeding according to it cautiously to fix the aesthetic appearance systematically.
+
+Below is a **comprehensive UI/UX enhancement plan** followed by a **production-ready CSS patch** (inside `css` tags) that gives your app a refined, modern, and professional aesthetic with a cohesive **color scheme**, **elegant Google Fonts**, **high-contrast legibility**, **micro-animations**, and a **day/night mode toggle** built-in.
+
+---
+
+## 🎨 UI/UX Redesign Plan (High-Level)
+
+### 1. **Color System**
+
+**Day Mode**
+
+* Background: `#FAFAFA`
+* Surface: `#FFFFFF`
+* Primary: `#2B6CB0` (soft blue accent)
+* Secondary: `#EDF2F7`
+* Text: `#1A202C`
+* Button Text: `#FFFFFF`
+
+**Night Mode**
+
+* Background: `#0D1117`
+* Surface: `#161B22`
+* Primary: `#3B82F6` (bright azure)
+* Secondary: `#1E293B`
+* Text: `#E2E8F0`
+* Button Text: `#FFFFFF`
+
+### 2. **Font Pairing**
+
+Use clean, modern Google Fonts:
+
+* **Heading:** `Poppins` (semi-bold, elegant geometry)
+* **Body:** `Inter` (optimized for readability)
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+```
+
+### 3. **Buttons**
+
+Rounded, subtle shadow, animated hover lift:
+
+* Rounded corners: `0.75rem`
+* Hover: soft gradient + elevation
+* Transition: `transform 0.2s ease, box-shadow 0.3s ease`
+
+### 4. **Animations**
+
+* **Fade + slide in** for floating elements.
+* **Micro hover lifts** for clickable items.
+* **Mode toggle** with smooth color interpolation.
+
+### 5. **Day/Night Mode Toggle**
+
+A small circular button at top-right corner toggling class `.dark-mode` on `<body>`.
+
+---
+
+## 💅 CSS Patch (Inject or Replace Current)
+
+```css
+/* =============================
+   🌞🌙 Elegant Dual-Mode Theme
+   ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap');
+
+:root {
+  /* Day Mode */
+  --bg-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-color: #1a202c;
+  --subtext-color: #4a5568;
+  --primary-color: #2b6cb0;
+  --secondary-color: #edf2f7;
+  --button-text: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+body.dark-mode {
+  --bg-color: #0d1117;
+  --surface-color: #161b22;
+  --text-color: #e2e8f0;
+  --subtext-color: #94a3b8;
+  --primary-color: #3b82f6;
+  --secondary-color: #1e293b;
+  --button-text: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  margin-bottom: 0.5em;
+  letter-spacing: -0.02em;
+}
+
+/* Buttons */
+button, .btn {
+  background: var(--primary-color);
+  color: var(--button-text);
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 3px 6px var(--shadow-color);
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--shadow-color);
+  background: linear-gradient(135deg, var(--primary-color), #60a5fa);
+}
+
+/* Floating Ball (MiniMax) - refined aesthetic */
+#minimax-floating-ball {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  background: var(--surface-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  z-index: 9999;
+  transition: var(--transition);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  cursor: pointer;
+}
+
+#minimax-floating-ball:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.minimax-ball-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.minimax-close-icon {
+  margin-left: 10px;
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.minimax-close-icon:hover {
+  opacity: 1;
+  background: var(--secondary-color);
+}
+
+/* Day/Night Toggle Button */
+#mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: var(--surface-color);
+  color: var(--text-color);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px var(--shadow-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 18px;
+}
+
+#mode-toggle:hover {
+  transform: rotate(15deg);
+  background: var(--secondary-color);
+}
+```
+
+---
+
+## ☀️ Add Mode Toggle Script (just before `</body>`)
+
+```html
+<div id="mode-toggle">🌙</div>
+<script>
+  const toggle = document.getElementById('mode-toggle');
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  });
+</script>
+```
+
+---
+
+# Implementation Plan — Restyling the Entire App UI (meticulous & validated)
+
+Please think deeper and harder, and lay out a thorough, systematic plan to re-imagine and implement a full CSS extension that restyles your app UI (inputs, cards, layout containers, toasts, forms, tables, icons, modal, floating elements, and the mode toggle). After the plan You will validate it (risks, checkpoints, tests), then proceed cautiously and deliver a production-ready CSS extension you can drop into the project.
+
+---
+
+# 1) Objectives (what success looks like)
+
+* A unified visual system (light + auto dark mode) with tokens (colors, radii, spacing, shadows).
+* Readable, modern typography (Google fonts: Poppins for headings; Inter for body).
+* Elevated UI elements: inputs, buttons, cards, nav, footer, modals, forms, toasts, and the floating ball.
+* Consistent motion system (micro-interactions only).
+* Accessibility: contrast ratios, focus states, keyboard navigability, reduced-motion respect.
+* Easy integration: single CSS file (`style-system-extension.css`) loaded after current CSS and before custom scripts.
+* Safe rollback: minimal specificity conflicts and clear override rules.
+
+---
+
+# 2) Scope (what’s included)
+
+* Global tokens and variables
+* Typography rules & scale (h1-h6, p, small)
+* Layout helpers (container, grid, spacing utilities)
+* Buttons (primary/secondary/ghost/icon)
+* Inputs / selects / textareas / form field states (focus, error, disabled)
+* Cards & lists (service cards, testimonial cards, feature cards)
+* Nav / header / footer refinements
+* Modal, Tooltip, Toast styling
+* Floating ball (refined) and mode-toggle styling
+* Dark mode (`prefers-color-scheme: dark`) + `.dark-mode` override for manual toggle
+* Motion rules and `prefers-reduced-motion` handling
+* Accessibility helpers (focus-visible, aria-ready styles)
+
+---
+
+# 3) Architecture & File Strategy
+
+* Single CSS file: `style-system-extension.css` (non-destructive, uses CSS vars).
+* Namespacing: use semantic class overrides (e.g., `.app-card`, `.app-btn-primary`, `.app-input`) to avoid colliding with existing class names.
+* Token-first approach: `:root` variables for colors, spacing, radii, shadows. Dark mode overrides inside `@media (prefers-color-scheme: dark)` and `.dark-mode`.
+* Progressive enhancement: keep specificity modest so existing Tailwind utilities still work; use `!important` only where absolutely necessary (minimized).
+
+---
+
+# 4) Execution Phases & Checklist
+
+### Phase A — Design tokenization & typography (deliverable: token block + font import)
+
+* [ ] Define color tokens (primary/secondary/surface/bg/text/muted/alert)
+* [ ] Define spacing scale and max-width container
+* [ ] Select fonts and declare `@import` links
+* [ ] Define typographic scale (h1-h6, lead, body, caption)
+
+### Phase B — Core components (deliverable: CSS for buttons, inputs, cards)
+
+* [ ] Buttons (primary, secondary, ghost, disabled, icon)
+* [ ] Inputs (default, focus, error, success, disabled)
+* [ ] Cards (default, hover lift, media layout)
+* [ ] Forms (labels, helper text, inline validation)
+
+### Phase C — Layout & containers (deliverable: container, grid utilities)
+
+* [ ] `.container` max width, centering
+* [ ] Responsive grid helpers for card arrays
+* [ ] Vertical rhythm (standard paddings & margins)
+
+### Phase D — Overlays & micro UI (deliverable: modal, toast, tooltip)
+
+* [ ] Modal base + focus trap friendly styling
+* [ ] Toast placement and animation (bottom-right default)
+* [ ] Tooltips accessible (aria)
+
+### Phase E — Floating controls & mode toggle (deliverable: refined floating ball & toggle)
+
+* [ ] Restyle floating ball to match system tokens
+* [ ] Mode toggle button styles + width for touch
+
+### Phase F — Motion & accessibility (deliverable: transitions + reduced-motion)
+
+* [ ] Central motion timings and easing
+* [ ] Respect `prefers-reduced-motion`
+* [ ] Focus-visible and keyboard indicators
+
+### Phase G — Testing & validation (deliverable: QA checklist)
+
+* [ ] Cross-browser visual check (Chrome, Safari, Edge)
+* [ ] Responsive checks (320–1440px)
+* [ ] Contrast check (WCAG AA for text; AAA where possible)
+* [ ] Keyboard navigation and focus order
+* [ ] Integration smoke test (load after Tailwind and verify no major break)
+
+---
+
+# 5) Risks & Mitigations
+
+* **Risk:** Existing utility classes (Tailwind) may override or conflict.
+  **Mitigation:** Use semantic class names and moderate specificity; instruct to load after Tailwind; avoid heavy use of `!important`.
+
+* **Risk:** Dark mode color contrast might be insufficient.
+  **Mitigation:** Precompute contrast ratios for main combos (text on surfaces) and adjust tokens; include QA step.
+
+* **Risk:** Motion may cause discomfort.
+  **Mitigation:** Respect `prefers-reduced-motion` and keep animations subtle and short.
+
+* **Risk:** Form fields/inputs might have platform-native styles that look inconsistent.
+  **Mitigation:** Reset common inputs with normalized base and gentle box-shadow.
+
+---
+
+# 6) Validation Criteria (how we’ll know it’s good)
+
+* Typography readable at common viewports (16px base body)
+* Primary CTA color passes 4.5:1 contrast vs background
+* Focus-visible is visible and meets accessibility expectations
+* Buttons have consistent height and visual weight across breakpoints
+* Cards have consistent elevation and spacing rhythm
+* Dark mode activates automatically and via `.dark-mode` toggle with preserved contrast
+* No visual regressions causing broken layout on major pages
+
+---
+
+# 7) Deployment & Rollback Plan
+
+1. Add `style-system-extension.css` to project `/public/css/` (or equivalent).
+2. Link it in `<head>` **after** Tailwind/main CSS.
+3. Soft launch behind feature flag or with staged rollout (if your hosting/CD supports).
+4. Monitor console & visual pages (home, forms, booking pages).
+5. Rollback: remove CSS link or revert to previous CSS file; keep original CSS untouched.
+
+---
+
+# 8) Implementation — Proceeding Cautiously
+
+I’ve reviewed and validated the plan above. Now I’ll implement the CSS extension in a single file named:
+
+**`style-system-extension.css`**
+
+It will:
+
+* Import Google fonts
+* Define tokens and dark-mode overrides (both `prefers-color-scheme` and `.dark-mode`)
+* Provide component styles as described in the plan
+* Be conservative in specificity so Tailwind still functions if you use it
+
+Below is the **production-ready CSS extension**. Drop it into `/public/css/style-system-extension.css` and include it after your app’s main CSS.
+
+---
+
+```css
+/* =========================================================
+   style-system-extension.css
+   Unified design system + full component restyle
+   Generated by: ChatGPT — The Meticulous Approach
+   Version: 1.0
+   Usage: Load this AFTER your main/tailwind CSS file.
+   ========================================================= */
+
+/* 0. Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+/* 1. Core design tokens (light mode defaults) */
+:root {
+  /* color surfaces */
+  --app-bg: #FAFAFA;
+  --surface-1: #FFFFFF;     /* panels, cards */
+  --surface-2: #F1F5F9;     /* subtle sections */
+  --muted-surface: #EDF2F7;
+
+  /* text */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-inverse: #FFFFFF;
+
+  /* brand */
+  --brand-primary: #2B6CB0;  /* main CTA/links */
+  --brand-primary-600: #1E40AF;
+  --brand-accent: #06B6D4;   /* secondary accent */
+
+  /* status */
+  --success: #16A34A;
+  --danger: #E11D48;
+  --warning: #F59E0B;
+
+  /* radii / spacing */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --container-max: 1150px;
+
+  /* shadows */
+  --shadow-1: 0 6px 16px rgba(15, 23, 42, 0.06);
+  --shadow-2: 0 12px 36px rgba(15, 23, 42, 0.08);
+
+  /* motion */
+  --ease: cubic-bezier(.2,.9,.25,1);
+  --motion-fast: 160ms;
+  --motion-medium: 260ms;
+
+  /* misc */
+  --focus-ring: rgba(43,108,176,0.18); /* brand-primary with transparency */
+
+  /* sizing */
+  --btn-height: 48px;
+}
+
+/* Dark mode token overrides (auto and manual) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: #0B1220;
+    --surface-1: #0F1724;
+    --surface-2: #0B1320;
+    --muted-surface: #071024;
+
+    --text-primary: #E6EEF8;
+    --text-secondary: #9FB4D9;
+
+    --brand-primary: #60A5FA;  /* lighter blue for dark */
+    --brand-primary-600: #3B82F6;
+    --brand-accent: #06B6D4;
+
+    --shadow-1: 0 6px 18px rgba(2,6,23,0.6);
+    --shadow-2: 0 14px 40px rgba(2,6,23,0.7);
+    --focus-ring: rgba(96,165,250,0.14);
+  }
+}
+
+/* Also allow manual toggle with .dark-mode on body */
+body.dark-mode {
+  --app-bg: #0B1220;
+  --surface-1: #0F1724;
+  --surface-2: #0B1320;
+  --muted-surface: #071024;
+
+  --text-primary: #E6EEF8;
+  --text-secondary: #9FB4D9;
+
+  --brand-primary: #60A5FA;
+  --brand-primary-600: #3B82F6;
+  --brand-accent: #06B6D4;
+
+  --shadow-1: 0 6px 18px rgba(2,6,23,0.6);
+  --shadow-2: 0 14px 40px rgba(2,6,23,0.7);
+  --focus-ring: rgba(96,165,250,0.14);
+}
+
+/* 2. Global resets & base */
+html, body {
+  height: 100%;
+  background: var(--app-bg);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  transition: background var(--motion-medium) var(--ease), color var(--motion-medium) var(--ease);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+/* 3. Typography scale */
+h1 { font-family: "Poppins", sans-serif; font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.05; margin: 0 0 var(--space-2) 0; color: var(--text-primary); }
+h2 { font-family: "Poppins", sans-serif; font-size: clamp(1.4rem, 3.2vw, 2rem); margin: 0 0 var(--space-2) 0; color: var(--text-primary); }
+h3 { font-family: "Poppins", sans-serif; font-size: 1.25rem; margin: 0 0 var(--space-2); color: var(--text-primary); }
+p, label, li { font-size: 1rem; color: var(--text-secondary); margin: 0 0 var(--space-2) 0; }
+
+/* Lead / hero paragraph */
+.lead { font-size: 1.125rem; color: var(--text-secondary); }
+
+/* 4. Buttons (app-prefixed to avoid colliding) */
+.app-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--btn-height);
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--motion-medium) var(--ease), box-shadow var(--motion-medium) var(--ease), background var(--motion-medium) var(--ease);
+}
+
+/* Primary */
+.app-btn-primary {
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-primary-600));
+  color: var(--text-inverse);
+  border: none;
+  box-shadow: var(--shadow-1);
+}
+.app-btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
+
+/* Secondary (outlined) */
+.app-btn-secondary {
+  background: transparent;
+  color: var(--brand-primary);
+  border: 1px solid rgba(43,108,176,0.12);
+  box-shadow: none;
+}
+.app-btn-secondary:hover { background: rgba(43,108,176,0.06); transform: translateY(-2px); }
+
+/* Ghost (flat) */
+.app-btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+}
+.app-btn-ghost:hover { background: rgba(0,0,0,0.04); }
+
+/* Disabled */
+.app-btn[disabled], .app-btn-disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Icon button */
+.app-btn-icon { padding: 8px; border-radius: 10px; display: inline-grid; place-items: center; }
+
+/* 5. Input / form system */
+.app-form-field { display: grid; gap: 6px; margin-bottom: var(--space-3); }
+.app-input, .app-select, .app-textarea {
+  width: 100%;
+  background: var(--surface-1);
+  border: 1px solid rgba(15,23,42,0.06);
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: var(--text-primary);
+  box-shadow: inset 0 1px 0 rgba(15,23,42,0.02);
+  transition: border-color var(--motion-fast) var(--ease), box-shadow var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+  font-size: 1rem;
+}
+
+.app-input:focus, .app-select:focus, .app-textarea:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 6px 18px rgba(43,108,176,0.08);
+}
+
+/* placeholder muted */
+.app-input::placeholder, .app-textarea::placeholder { color: rgba(71,85,105,0.45); }
+
+/* Input states */
+.app-input[disabled], .app-select[disabled], .app-textarea[disabled] {
+  background: var(--muted-surface);
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.app-input.error, .app-select.error, .app-textarea.error {
+  border-color: var(--danger);
+  box-shadow: 0 6px 14px rgba(225,29,72,0.06);
+}
+
+/* 6. Card system */
+.app-card {
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-1);
+  transition: transform var(--motion-medium) var(--ease), box-shadow var(--motion-medium) var(--ease);
+}
+.app-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
+
+/* Card header / media */
+.app-card .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.app-card .card-title { font-weight: 600; color: var(--text-primary); }
+.app-card .card-sub { color: var(--text-secondary); font-size: 0.95rem; }
+
+/* 7. Grid / layout helpers */
+.app-grid { display: grid; gap: var(--space-3); }
+.app-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.app-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) { .app-grid.cols-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .app-grid.cols-2, .app-grid.cols-3 { grid-template-columns: 1fr; } }
+
+/* 8. Modal */
+.app-modal-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: rgba(2,6,23,0.48); z-index: 9000;
+  animation: fadeIn var(--motion-medium) var(--ease) both;
+}
+.app-modal {
+  width: min(780px, calc(100% - 48px));
+  background: var(--surface-1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-2);
+  transform-origin: center;
+  animation: popIn var(--motion-medium) var(--ease) both;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes popIn { from { opacity: 0; transform: translateY(8px) scale(.996) } to { opacity: 1; transform: translateY(0) scale(1) } }
+
+/* 9. Toasts */
+.app-toast-container { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
+.app-toast {
+  background: var(--surface-1); color: var(--text-primary);
+  padding: 12px 16px; border-radius: 10px; box-shadow: var(--shadow-1); min-width: 260px;
+  display: flex; gap: 12px; align-items: flex-start;
+  transform-origin: right bottom;
+  animation: toastIn var(--motion-medium) var(--ease);
+}
+@keyframes toastIn { from { opacity: 0; transform: translateY(8px) scale(.98) } to { opacity: 1; transform: translateY(0) scale(1) } }
+
+/* 10. Tooltip (simple) */
+.app-tooltip { background: rgba(2,6,23,0.9); color: #FFF; padding: 6px 8px; border-radius: 6px; font-size: 13px; }
+
+/* 11. Floating ball refinement (MiniMax) */
+#minimax-floating-ball {
+  position: fixed; bottom: 22px; right: 22px;
+  background: var(--surface-1); color: var(--text-primary);
+  padding: 12px 14px; border-radius: 14px; display:flex; gap:10px; align-items:center;
+  box-shadow: var(--shadow-2); border: 1px solid rgba(15,23,42,0.04);
+  cursor: pointer; z-index: 99999; transition: transform var(--motion-medium) var(--ease), box-shadow var(--motion-medium) var(--ease);
+}
+#minimax-floating-ball:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(15,23,42,0.12); }
+.minimax-logo-wave { width: 26px; height: 22px; border-radius: 8px; background-size: contain; background-repeat: no-repeat; }
+.minimax-ball-text { font-size: 13px; color: var(--text-primary); font-weight: 600; }
+.minimax-close-icon { font-size: 14px; margin-left: 8px; color: var(--text-secondary); }
+
+/* 12. Header / nav / footer */
+.app-header { background: transparent; padding: 14px 0; position: sticky; top: 0; z-index: 8000; }
+.app-nav { display:flex; align-items:center; justify-content:space-between; gap: 16px; }
+.app-footer { background: transparent; color: var(--text-secondary); padding: var(--space-4) 0; }
+
+/* 13. Accessibility helpers */
+:focus { outline: none; }
+:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 8px; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* 14. Small utilities */
+.text-muted { color: var(--text-secondary) !important; }
+.rounded-xl { border-radius: var(--radius-lg) !important; }
+
+/* End of style-system-extension.css */
+```
+
+---
+
+# 9) Post-implementation QA checklist (you / dev should run)
+
+* [ ] Link CSS after main CSS and reload each main page.
+* [ ] Verify hero, header, and footer for layout regressions.
+* [ ] Test forms (input focus, validation messages).
+* [ ] Test modal open/close and keyboard trap.
+* [ ] Test toasts appear and dismiss.
+* [ ] Check floating ball behavior and close action.
+* [ ] Verify dark mode automatic activation and manual toggle (if used).
+* [ ] Run contrast checks (e.g., axe / Lighthouse) for a representative page.
+* [ ] Test mobile breakpoints and small-screen spacing.
+
+---
+
+
+

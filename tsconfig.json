@@ -37,6 +37,11 @@
     "node_modules",
     ".next",
     "dist",
-    "build"
+    "build",
+    "tests",
+    "supabase/functions",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "vitest.config.ts"
   ]
 }

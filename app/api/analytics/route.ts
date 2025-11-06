@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
         .select('click_count', { count: 'exact' })
         .then(({ data, error }) => {
           if (error) throw error
-          const totalClicks = data?.reduce((sum, link) => sum + link.click_count, 0) || 0
+          const totalClicks = (data as any[])?.reduce((sum: number, link: any) => sum + link.click_count, 0) || 0
           return totalClicks
         }),
     ])
@@ -58,11 +58,11 @@ export async function GET(request: NextRequest) {
       const nextDay = new Date(date)
       nextDay.setDate(nextDay.getDate() + 1)
 
-      const dayClicks = recentLinks?.filter(link => {
+      const dayClicks = (recentLinks as any[])?.filter((link: any) => {
         if (!link.last_accessed) return false
         const linkDate = new Date(link.last_accessed)
         return linkDate >= date && linkDate < nextDay
-      }).reduce((sum, link) => sum + link.click_count, 0) || 0
+      }).reduce((sum: number, link: any) => sum + link.click_count, 0) || 0
 
       return {
         date: date.toISOString().split('T')[0], // YYYY-MM-DD format
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
     const analyticsData = {
       totalLinks,
       totalClicks,
-      top5: (topLinks || []).map(link => ({
+      top5: ((topLinks || []) as any[]).map((link: any) => ({
         short_id: link.short_id,
         original_url: link.original_url,
         click_count: link.click_count,

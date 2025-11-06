@@ -1,0 +1,8 @@
+total 18
+drwxr-xr-x+  3 minimax minimax 4096 Nov  6 06:33 .
+drwxr-xr-x+ 24 minimax minimax 4096 Nov  6 06:33 ..
+-rw-r-xr--+  1 minimax minimax  799 Nov  6 05:50 .env
+drwxr-xr-x+  6 minimax minimax 4096 Nov  6 06:30 .next
+-rw-r-xr--+  1 minimax minimax  518 Nov  6 06:30 next.config.mjs
+-rw-r-xr--+  1 minimax minimax 2501 Nov  6 06:32 package.json
+-rw-r-xr--+  1 minimax minimax  798 Nov  6 06:32 server.js
